@@ -1,13 +1,13 @@
 function minifyLua() {
     const luaInput = document.getElementById("luaInput").value;
-    // Simple minifier: removes whitespace and comments
+    // Simple minifier: removes unnecessary whitespace and comments
     let minified = luaInput
-        .replace(/\s+/g, ' ')
-        .replace(/--.*?(\r?\n|$)/g, '')
-        .replace(/\/\*[\s\S]*?\*\//g, '');
+        .replace(/--.*?(\r?\n|$)/g, '\n') // Remove single line comments, keeping newlines
+        .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+        .replace(/\/\*[\s\S]*?\*\//g, ''); // Remove multiline comments
 
     // Regular expressions for variable and function declarations
-    const variableRegex = /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
+    const variableRegex = /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)\b(?!\s*\()/g;
     const functionRegex = /\bfunction\s+([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
     let variableCounter = 1;
     const variables = new Map();
