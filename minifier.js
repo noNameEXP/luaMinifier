@@ -13,7 +13,7 @@ function minifyLua() {
 
     // Collect all unique variable names
     minified = minified.replace(variableRegex, (match, p1) => {
-        const newVariableName = `BanonaVariable${variableCounter++}`;
+        const newVariableName = `Banona${variableCounter++}`;
         variables.set(p1, newVariableName);
         return `local ${newVariableName}`;
     });
