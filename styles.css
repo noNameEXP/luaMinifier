@@ -16,9 +16,11 @@ body {
 }
 
 textarea {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
+   width: 100%; 
+    height: 100px; 
+    margin-bottom: 10px; 
+    background-color: #232323;
+    color: #fff;
 }
 
 button {
@@ -31,4 +33,8 @@ button {
 
 button:hover {
     background-color: #262626;
+}
+
+h1 { 
+    color: #FFFFFF; 
 }
