@@ -20,7 +20,7 @@ function minifyLua() {
 
     // Replace each variable with BanonaVariableNumber
     variables.forEach(variable => {
-        const newVariableName = `BanonaVariable${variableCounter++}`;
+        const newVariableName = `Banona${variableCounter++}`;
         const variableReplaceRegex = new RegExp(`\\b${variable}\\b`, 'g');
         minified = minified.replace(variableReplaceRegex, newVariableName);
     });
