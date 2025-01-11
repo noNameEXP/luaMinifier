@@ -7,15 +7,25 @@ function minifyLua() {
         .replace(/\/\*[\s\S]*?\*\//g, '');
 
     // Replace variables with BanonaVariableNumber
-    const variableRegex = /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
+    const variableRegex = /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)\b(?!\s*\()/g;
+    const functionRegex = /\bfunction\s+([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
     let variableCounter = 1;
     const variables = new Map();
+    const functions = new Set();
+
+    // Collect all unique function names
+    minified.replace(functionRegex, (match, p1) => {
+        functions.add(p1);
+        return match;
+    });
 
     // Collect all unique variable names
-    minified = minified.replace(variableRegex, (match, p1) => {
-        const newVariableName = `Banona${variableCounter++}`;
-        variables.set(p1, newVariableName);
-        return `local ${newVariableName}`;
+    minified.replace(variableRegex, (match, p1) => {
+        if (!keywords.has(p1) && !functions.has(p1)) {
+            const newVariableName = `BanonaVariable${variableCounter++}`;
+            variables.set(p1, newVariableName);
+        }
+        return match;
     });
 
     // Replace each variable usage with BanonaVariableNumber
