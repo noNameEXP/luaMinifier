@@ -6,8 +6,8 @@ function minifyLua() {
         .replace(/--.*?(\r?\n|$)/g, '')
         .replace(/\/\*[\s\S]*?\*\//g, '');
 
-    // Replace variables with BanonaVariableNumber
-    const variableRegex = /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)\b(?!\s*\()/g;
+    // Regular expressions for variable and function declarations
+    const variableRegex = /\blocal\s+([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
     const functionRegex = /\bfunction\s+([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
     let variableCounter = 1;
     const variables = new Map();
@@ -28,7 +28,7 @@ function minifyLua() {
         return match;
     });
 
-    // Replace each variable usage with BanonaVariableNumber
+    // Replace each variable usage with BanonaVariableNumber, except for function names
     variables.forEach((newVariable, originalVariable) => {
         const variableReplaceRegex = new RegExp(`\\b${originalVariable}\\b`, 'g');
         minified = minified.replace(variableReplaceRegex, newVariable);
@@ -41,6 +41,5 @@ function minifyLua() {
 const keywords = new Set([
     'and', 'break', 'do', 'else', 'elseif', 'end', 'false', 'for',
     'function', 'if', 'in', 'local', 'nil', 'not', 'or', 'repeat',
-    'return', 'then', 'true', 'until', 'while','coroutine',
-    'task','spawn','=','==','CFrame','Vector3','game'
+    'return', 'then', 'true', 'until', 'while'
 ]);
