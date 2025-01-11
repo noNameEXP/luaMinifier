@@ -31,5 +31,6 @@ function minifyLua() {
 const keywords = new Set([
     'and', 'break', 'do', 'else', 'elseif', 'end', 'false', 'for',
     'function', 'if', 'in', 'local', 'nil', 'not', 'or', 'repeat',
-    'return', 'then', 'true', 'until', 'while'
+    'return', 'then', 'true', 'until', 'while','coroutine',
+    'task','spawn','=','==','CFrame','Vector3','game'
 ]);
